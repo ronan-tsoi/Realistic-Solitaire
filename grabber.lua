@@ -12,6 +12,7 @@ function GrabberClass:new()
   grabber.currentMousePos = nil
   
   grabber.grabPos = nil
+  grabber.grabbing = nil
   
   return grabber
 end
@@ -43,5 +44,5 @@ function GrabberClass:release()
 end
 
 function GrabberClass:draw()
-  love.graphics.print(tostring(self.grabPos), self.currentMousePos.x + 20, self.currentMousePos.y - 20)
+  love.graphics.print(tostring(self.grabbing), self.currentMousePos.x + 50, self.currentMousePos.y - 50)
 end

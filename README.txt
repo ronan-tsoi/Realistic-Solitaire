@@ -1,6 +1,10 @@
 Solitaire Project
 Ronan Tsoi
 
+!!!
+My code right now is a MESS sorry if it's kind of impossible to read right now 
+!!!
+
 If I'm being totally honest I have really had trouble finding time to work on this project because of a lot of my due dates for assignments from CSE101 being piled on this week in addition to officer responsibilities for extracurricular clubs I'm involved with (mainly GDA since we had a major sprint deadline for playtesting our mock studio game this Friday).
 
 I'm planning on working quite a bit more within the next week on the project to submit the completed version by April 24th (Thursday). 

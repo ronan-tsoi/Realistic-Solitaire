@@ -5,6 +5,7 @@ io.stdout:setvbuf("no")
 
 require "card"
 require "grabber"
+require "stack"
 
 function love.load()
   love.window.setMode(960, 640)
@@ -13,7 +14,14 @@ function love.load()
   grabber = GrabberClass:new()
   cardTable = {}
   
-  table.insert(cardTable, CardClass:new(100,100))
+  testStack = StackClass:new(600, 100)
+  
+  table.insert(cardTable, CardClass:new(100,100,1,1,false))
+  table.insert(cardTable, CardClass:new(300,100,1,1,false))
+  table.insert(testStack.cards, CardClass:new(testStack.position.x,testStack.position.y,2,4,false))
+  table.insert(testStack.cards, CardClass:new(testStack.position.x,testStack.position.y,3,8,false))
+  --piles = {}
+  --table.insert(piles, 
 end
 
 function love.update()
@@ -35,6 +43,8 @@ function love.draw()
   love.graphics.setColor(1, 1, 1, 1)
   love.graphics.print("Mouse: " .. tostring(grabber.currentMousePos.x) .. ", " ..
     tostring(grabber.currentMousePos.y))
+  
+  testStack:draw()
 end
 
 function checkForMouseMoving()
@@ -42,7 +52,9 @@ function checkForMouseMoving()
     return
   end
   
-  for __, card in ipairs(cardTable) do
+  for _, card in ipairs(cardTable) do
     card:checkForMouseOver(grabber)
   end
+  testStack:checkForMouseOver(grabber, cardTable)
+  
 end
