@@ -1,12 +1,14 @@
 Solitaire Project
 Ronan Tsoi
 
-!!!
-My code right now is a MESS sorry if it's kind of impossible to read right now 
-!!!
+NOTE:
+The game checks for valid plays but does not (currently) store the original location of the card.
+This means that you can get softlocked if you move the top card off of a tableau without an existing valid position.
 
-If I'm being totally honest I have really had trouble finding time to work on this project because of a lot of my due dates for assignments from CSE101 being piled on this week in addition to officer responsibilities for extracurricular clubs I'm involved with (mainly GDA since we had a major sprint deadline for playtesting our mock studio game this Friday).
+Programming Patterns- I would need to refactor my code for it to actually properly fit these programming patterns, but it is reminiscient of something that utilizes a flyweight pattern for the cards and their associated values for suits/number, states for cards and piles to determine player actions, and components throughout the program.
 
-I'm planning on working quite a bit more within the next week on the project to submit the completed version by April 24th (Thursday). 
+The card back image is from here:
+https://www.carstickers.com/products/stickers/card-suits-playing-cards-dice-stickers/marketplace/playing-cards-back-design-in-blue-sticker/
 
-Currently the project has a card class that allows individual cards to be dragged by the player by holding down left click. My next steps were to create a stack class that from which cards could be placed and removed from in addition to adding a framework for individual card data i.e. suit, number, status of the card as either face up or face down.
+Suit pips are from the playing cards Wikipedia page:
+https://en.wikipedia.org/wiki/Playing_card
