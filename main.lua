@@ -8,7 +8,7 @@ require "grabber"
 require "stack"
 
 function love.load()
-  love.window.setTitle("Anarchy Solitaire")
+  love.window.setTitle("Solitaire Hell")
   love.window.setMode(1080, 720)
   love.graphics.setBackgroundColor(0, 0.7, 0.2, 1)
   
@@ -28,8 +28,9 @@ function love.load()
     table.insert(suits, StackClass:new(1080 - (120 * i) - 20, 40, 3, i))
   end
   
-  -- 13 values (J, Q, K will just be 11, 12, 13 for now)
+  -- 13 values (J, Q, K will just be 11, 12, 13)
   -- 4 suits
+  -- cards created and loaded into deck pile
   for suit = 1, 4, 1 do
     for val = 1, 13, 1 do
       table.insert(deckPile.cards, CardClass:new(deckPile.position.x, deckPile.position.y, suit, val, false))
@@ -62,6 +63,7 @@ function love.update()
   checkForMouseMoving()
 end
 
+--everything below here is still kind of a mess
 function love.draw()
   love.graphics.setColor(1, 1, 1, 1)
   love.graphics.print("Mouse: " .. tostring(grabber.currentMousePos.x) .. ", " ..
