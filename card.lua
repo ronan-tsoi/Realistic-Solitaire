@@ -8,14 +8,11 @@ CARD_STATE = {
   MOUSE_OVER = 1,
   GRABBED = 2
 }
-SUITS = {
-  "assets/suitDiamonds.png",
-  "assets/suitHearts.png",
-  "assets/suitClubs.png",
-  "assets/suitSpades.png",
-}
 
-function CardClass:new(xPos, yPos, suit, value, isFaceUp)
+WHITE = {1, 1, 1, 1}
+BLACK = {0, 0, 0, 1}
+
+function CardClass:new(xPos, yPos, suit, value, isFaceUp, homePosition)
   local card = {}
   local metadata = {__index = CardClass}
   setmetatable(card, metadata)
@@ -24,38 +21,31 @@ function CardClass:new(xPos, yPos, suit, value, isFaceUp)
   card.size = Vector(100, 140)
   card.state = CARD_STATE.IDLE
   card.isMouseOver = false
+  card.homePosition = homePosition
   
   card.suit = suit
   card.value = value
   card.isFaceUp = isFaceUp
   
   card.backImage = love.graphics.newImage("assets/cardBackImage.png")
-  card.suitPip = love.graphics.newImage(SUITS[tonumber(suit)])
+  card.frontImage = love.graphics.newImage("assets/cardFaces/" .. value .. "_" .. suit .. ".png")
   
   return card
 end
 
-function CardClass:update()
-
-end
-
 function CardClass:draw()
 
-  love.graphics.setColor(1, 1, 1, 1)
+  love.graphics.setColor(WHITE)
   love.graphics.rectangle("fill", self.position.x, self.position.y, self.size.x, self.size.y, 6, 6)
   
   if self.isFaceUp then
-    love.graphics.draw(self.suitPip, self.position.x + 12, self.position.y + 25)
-    love.graphics.setColor(0, 0, 0)
-    love.graphics.printf(self.value, self.position.x + 10, self.position.y + 10, 20, 'center')
-    love.graphics.printf(self.value, self.position.x + self.size.x - 30, self.position.y + self.size.y - 20, 20, 'center')
-    
+    love.graphics.draw(self.frontImage, self.position.x, self.position.y, 0, 0.193)
   else
     love.graphics.draw(self.backImage, self.position.x, self.position.y)
   end
   
-  love.graphics.setColor(0, 0, 0, 1)
-  love.graphics.rectangle("line", self.position.x-1, self.position.y-1, self.size.x+2, self.size.y+2, 6, 6)
+  love.graphics.setColor(BLACK)
+  love.graphics.rectangle("line", self.position.x - 1, self.position.y - 1, self.size.x + 2, self.size.y + 2, 6, 6)
   
   -- DEBUG
   --[[ love.graphics.print(
@@ -88,8 +78,8 @@ function CardClass:checkForMouseOver(grabber)
   end
   
   if self.state == CARD_STATE.GRABBED then
-    self.position.x =  mousePos.x - (self.size.x/2)
-    self.position.y =  mousePos.y - (self.size.y/2)
+    self.position.x =  mousePos.x - (self.size.x / 2)
+    self.position.y =  mousePos.y - (self.size.y / 2)
     grabber.grabbing = true
   elseif self.state == CARD_STATE.MOUSE_OVER and grabber.state ~= 1 then
     grabber.grabbing = false
@@ -98,5 +88,6 @@ function CardClass:checkForMouseOver(grabber)
 end
 
 function CardClass:getColor()
-  if self.suit <= 2 then return 0 else return 1 end
+  if self.suit == 1 or self.suit == 3 then return 0
+  else return 1 end
 end
